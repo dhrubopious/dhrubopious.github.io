@@ -34,38 +34,67 @@ nav,
 }
 
 nav {
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
-  height: 17vh;
- 
+  height: 60px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .nav-links {
-  gap: 2rem;
+  gap: 1.5rem;
   list-style: none;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   
 }
 
 a {
-  color: rgb(10, 10, 10);
+  color: var(--text);
   text-decoration: none;
-  text-decoration-color: rgb(255, 255, 255);
+  padding: 0.3rem 0.8rem;
+  border-radius: 5px;
+  transition: all 300ms ease;
 }
 
 a:hover {
-  color: grey;
-  text-decoration: underline;
-  text-underline-offset: 1rem;
-  text-decoration-color: rgb(255, 255, 255);
+  color: var(--heading);
+  background: var(--focus);
+  text-decoration: none;
 }
 
 .logo {
-  font-size: 2rem;
+  font-size: 1.5rem;
+  font-weight: 600;
 }
 
 .logo:hover {
   cursor: default;
+}
+
+.theme-toggle-btn {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0.3rem;
+  border-radius: 50%;
+  transition: all 300ms ease;
+  color: var(--text);
+}
+
+.theme-toggle-btn:hover {
+  background-color: var(--focus);
+}
+
+/* Dark theme nav */
+.dark-theme nav {
+  background: rgba(0, 0, 0, 0.85);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 /* HAMBURGER MENU */
@@ -147,6 +176,216 @@ a:hover {
 .hamburger-icon span:first-child {
   transform: none;
 }
+
+/* Navigation */
+.main-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.6rem 1rem;
+    gap: 1rem;
+    background: var(--header-bg, #f6f6f6);
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+.nav-list { list-style: none; display: flex; gap: 0.75rem; margin:0; padding:0; align-items:center; }
+.nav-list a { text-decoration: none; color: var(--text); padding: 0.25rem 0.5rem; border-radius:4px; }
+.nav-list a:hover { background: rgba(0,0,0,0.04); }
+
+/* Revert nav to a top horizontal bar and remove left-sidebar rules */
+.main-nav {
+  position: static !important;
+  width: 100% !important;
+  left: auto !important;
+  top: auto !important;
+  bottom: auto !important;
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  padding: 0.6rem 1rem !important;
+  gap: 1rem !important;
+  background: var(--container-bg) !important;
+  border-bottom: 1px solid var(--container-border) !important;
+  box-shadow: none !important;
+  z-index: 1000;
+}
+
+/* Horizontal nav list */
+.main-nav .nav-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+/* Nav links as inline blocks */
+.main-nav .nav-list a {
+  display: inline-block;
+  padding: 0.35rem 0.5rem;
+  color: var(--text);
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: 600;
+  text-align: left;
+}
+
+/* Remove any left-sidebar content shift */
+.content-wrapper,
+#main.content-wrapper {
+  margin-left: 0 !important;
+  padding: 1.25rem !important;
+}
+
+/* Ensure responsive behavior simply stacks elements on small screens */
+@media (max-width: 720px) {
+  .main-nav {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0.5rem !important;
+    border-bottom: 1px solid var(--container-border) !important;
+  }
+  .main-nav .nav-list { flex-direction: row; flex-wrap: wrap; gap: 0.5rem; justify-content: center; }
+}
+
+/* Theme toggle button in nav */
+.theme-toggle {
+    border: 1px solid rgba(0,0,0,0.12);
+    background: transparent;
+    padding: 0.35rem 0.6rem;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    line-height: 1;
+}
+.theme-toggle[aria-pressed="true"] { box-shadow: 0 0 0 3px rgba(0,0,0,0.04) inset; }
+
+/* Theme variables */
+:root {
+    --bg: #ffffff;
+    --text: #111;
+    --header-bg: #f6f6f6;
+}
+.dark-theme {
+  /* make page bg very dark */
+  --bg: #000000;
+  /* containers are pure black */
+  --container-bg: #000000;
+  /* subtle lighter border to separate containers from page when needed */
+  --container-border: rgba(255,255,255,0.06);
+  /* keep text readable */
+  --text: #e6eef3;        /* body text */
+  --heading: #ffffff;     /* headings */
+  --subheading: #cfe6ff;  /* subheadings */
+  --muted: #9aa6b2;       /* muted text */
+  --accent: #60a5fa;      /* links */
+  --cta: #34d399;         /* call-to-action */
+  --code-bg: #071029;
+  --focus: rgba(96,165,250,0.18);
+  --container-shadow: 0 1px 2px rgba(0,0,0,0.6);
+}
+
+/* --- Text color palette & utilities (added) --- */
+/* Accessible palette chosen for good contrast on normal vision */
+:root{
+  --bg: #ffffff;
+  --text: #0f1724;         /* primary body text (very legible) */
+  --heading: #071033;      /* strong heading color */
+  --subheading: #1f2937;   /* noticeable but less than headings */
+  --muted: #6b7280;        /* secondary / muted text */
+  --accent: #2563eb;       /* links, highlights (blue) */
+  --cta: #059669;          /* call-to-action (green) */
+  --danger: #dc2626;       /* errors/attention */
+  --code-bg: #f3f4f6;
+  --focus:  rgba(37,99,235,0.18);
+}
+
+.dark-theme{
+  --bg: #0b0f14;
+  --text: #e6eef3;
+  --heading: #ffffff;
+  --subheading: #cfe6ff;
+  --muted: #9aa6b2;
+  --accent: #60a5fa;
+  --cta: #34d399;
+  --danger: #f87171;
+  --code-bg: #071029;
+  --focus: rgba(96,165,250,0.18);
+}
+
+body{
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+/* Headings: progressively strong and catch the eye */
+h1, .site-title { color: var(--heading); font-weight:700; letter-spacing: -0.02em; }
+h2 { color: var(--subheading); font-weight:600; }
+h3, h4 { color: var(--subheading); font-weight:600; }
+
+/* Paragraphs and smaller text */
+p, li { color: var(--text); line-height:1.6; }
+small, .muted, .text-muted { color: var(--muted); font-size:0.95em; }
+
+/* Links and interactive text: high visibility */
+a { color: var(--accent); text-decoration: none; }
+a:hover, a:focus { text-decoration: underline; outline: none; }
+a:focus-visible { box-shadow: 0 0 0 4px var(--focus); border-radius:6px; }
+
+/* Navigation: make links stand out clearly */
+.main-nav a, .nav-list a {
+  color: var(--text);
+  padding: 0.35rem 0.5rem;
+  border-radius: 6px;
+}
+.main-nav a:hover, .nav-list a:hover { background: rgba(37,99,235,0.06); color: var(--accent); }
+
+/* Buttons and CTAs: visually pop */
+.btn, .theme-toggle {
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02));
+  color: var(--text);
+  border: 1px solid rgba(0,0,0,0.08);
+  padding: 0.4rem 0.7rem;
+  border-radius: 8px;
+}
+.btn.primary, .btn-cta { background: var(--cta); color: #fff; border: none; }
+.btn.primary:hover, .btn-cta:hover { filter:brightness(0.95); }
+
+/* Repo summary / meta: make important bits catch the eye */
+.github-info .repo-summary p:first-child strong,
+.repo-summary strong, .repo-summary a {
+  color: var(--heading);
+  font-weight:600;
+}
+.repo-summary p { color: var(--text); }
+.repo-summary .meta { color: var(--muted); font-size:0.95em; }
+
+/* Code & preformatted blocks */
+code, kbd, pre {
+  background: var(--code-bg);
+  color: var(--text);
+  padding: 0.12rem 0.36rem;
+  border-radius: 6px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace;
+  font-size: 0.95em;
+}
+
+/* Emphasis utilities */
+.text-primary { color: var(--heading); font-weight:600; }
+.text-accent { color: var(--accent); font-weight:600; }
+.text-cta { color: #fff; background: var(--cta); padding:0.2rem 0.5rem; border-radius:6px; }
+
+/* Small accessibility focus states */
+:focus { outline: none; }
+:focus-visible { box-shadow: 0 0 0 4px var(--focus); border-radius: 6px; }
+
+/* Reveal animations keep earlier rules */
+.reveal { opacity:0; transform: translateY(8px); transition: all 420ms ease; }
+.revealed { opacity:1; transform: none; }
 
 /* SECTIONS */
 
@@ -431,4 +670,207 @@ footer {
 
 footer p {
   text-align: center;
+}
+
+/* --- Container background / border variables (added) --- */
+:root{
+  --container-bg: #fbfbfb;       /* light container background */
+  --container-border: #e9eef6;   /* light container border */
+  --container-shadow: 0 1px 2px rgba(16,24,40,0.03);
+}
+
+.dark-theme {
+  /* make page bg very dark */
+  --bg: #000000;
+  /* containers are pure black */
+  --container-bg: #000000;
+  /* subtle lighter border to separate containers from page when needed */
+  --container-border: rgba(255,255,255,0.06);
+  /* keep text readable */
+  --text: #e6eef3;        /* body text */
+  --heading: #ffffff;     /* headings */
+  --subheading: #cfe6ff;  /* subheadings */
+  --muted: #9aa6b2;       /* muted text */
+  --accent: #60a5fa;      /* links */
+  --cta: #34d399;         /* call-to-action */
+  --code-bg: #071029;
+  --focus: rgba(96,165,250,0.18);
+  --container-shadow: 0 1px 2px rgba(0,0,0,0.6);
+}
+
+/* Apply black container to all typical container-like elements */
+.dark-theme
+  .site-header,
+.dark-theme
+  .main-nav,
+.dark-theme
+  .github-info,
+.dark-theme
+  .repo-summary,
+.dark-theme
+  .card,
+.dark-theme
+  .container,
+.dark-theme
+  .section,
+.dark-theme
+  section,
+.dark-theme
+  article,
+.dark-theme
+  .panel,
+.dark-theme
+  .project-card,
+.dark-theme
+  .experience-card,
+.dark-theme
+  .about-me,
+.dark-theme
+  .projects,
+.dark-theme
+  .experience,
+.dark-theme
+  .about,
+.dark-theme
+  .reveal,
+.dark-theme
+  .btn,
+.dark-theme
+  .theme-toggle {
+  background: var(--container-bg) !important;
+  border: 1px solid var(--container-border) !important;
+  box-shadow: var(--container-shadow) !important;
+  color: var(--text) !important;
+}
+
+/* Defensive selectors: classes/IDs that may be named differently */
+.dark-theme
+  [class*="card"],
+.dark-theme
+  [class*="panel"],
+.dark-theme
+  [class*="container"],
+.dark-theme
+  [class*="section"] {
+  background: var(--container-bg) !important;
+  border-color: var(--container-border) !important;
+}
+
+/* Ensure any inline white backgrounds are overridden */
+.dark-theme *[style*="background"],
+.dark-theme *[style*="background-color"] {
+  background-color: transparent !important;
+}
+
+/* Keep link / accent styles highly visible on black */
+.dark-theme a,
+.dark-theme .nav-list a,
+.dark-theme .repo-summary a {
+  color: var(--accent) !important;
+  text-decoration: none;
+}
+.dark-theme a:hover,
+.dark-theme a:focus {
+  text-decoration: underline;
+}
+
+/* Make primary CTAs pop on pure black */
+.dark-theme .btn.primary,
+.dark-theme .btn-cta {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--cta) 85%, black 15%), var(--cta));
+  color: #000;
+  border: none;
+}
+
+/* Code blocks keep contrast */
+.dark-theme code,
+.dark-theme pre {
+  background: var(--code-bg) !important;
+  color: var(--text) !important;
+}
+
+/* Muted text slightly brighter for readability on black */
+.dark-theme .muted,
+.dark-theme .text-muted,
+.dark-theme small {
+  color: var(--muted) !important;
+}
+
+/* Maintain accessible focus outlines */
+.dark-theme :focus-visible {
+  box-shadow: 0 0 0 4px var(--focus) !important;
+  border-radius: 6px;
+}
+
+/* Make nav text white in dark mode */
+.dark-theme .main-nav,
+.dark-theme .main-nav .nav-list,
+.dark-theme .main-nav .nav-list a,
+.dark-theme .main-nav .nav-link,
+.dark-theme .main-nav .nav-actions,
+.dark-theme .main-nav .theme-toggle {
+  color: #ffffff !important;
+}
+
+/* Ensure SVG/icon fills and button borders stay visible */
+.dark-theme .main-nav svg,
+.dark-theme .main-nav .icon {
+  fill: #ffffff !important;
+  stroke: #ffffff !important;
+}
+
+.dark-theme .main-nav .theme-toggle {
+  border-color: rgba(255,255,255,0.12) !important;
+  background: transparent !important;
+}
+
+/* Keep hover/focus states readable on black */
+.dark-theme .main-nav a:hover,
+.dark-theme .main-nav a:focus,
+.dark-theme .main-nav .theme-toggle:focus {
+  color: #ffffff !important;
+  text-decoration: underline;
+  box-shadow: 0 0 0 4px rgba(255,255,255,0.06) !important;
+}
+
+/* Constrain nav content to match body width */
+:root {
+  --content-max-width: 980px; /* adjust as needed (e.g., 1100px) */
+  --content-side-padding: 1rem;
+}
+
+/* Inner wrapper for nav so nav content matches body width and is centered */
+.main-nav .nav-inner {
+  max-width: var(--content-max-width);
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 var(--content-side-padding);
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+/* Ensure the page main/body content uses same width */
+main#main,
+.content-wrapper {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  padding: 1.25rem var(--content-side-padding);
+  box-sizing: border-box;
+}
+
+/* Keep nav background full-width but inner content is constrained.
+   If you prefer the nav background also to be limited, change .main-nav to inline-block and center it. */
+
+/* Small screens: nav-inner becomes full-width padding */
+@media (max-width: 720px) {
+  .main-nav .nav-inner {
+    padding: 0 0.75rem;
+  }
+  main#main,
+  .content-wrapper {
+    padding: 1rem 0.75rem;
+  }
 }
